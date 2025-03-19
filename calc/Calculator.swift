@@ -27,11 +27,55 @@ class Calculator {
         return no1 + no2;
     }
     
+    func minus(no1: Int, no2: Int) -> Int {
+        return no1 - no2;
+    }
+    
+    func multiply(no1: Int, no2: Int) -> Int {
+        return no1 * no2;
+    }
+    
+    func divide(no1: Int, no2: Int) -> Int {
+        return no1 / no2;
+    }
+    
+    func modulus(no1: Int, no2: Int) -> Int {
+        return no1 % no2;
+    }
+
+    
     func calculate(args: [String]) -> String {
         // Todo: Calculate Result from the arguments. Replace dummyResult with your actual result;
-        let dummyResult = add(no1: 1, no2: 2);
+        //        let dummyResult = add(no1: 1, no2: 2);
+        //
+        //        let result = String(dummyResult);
+        //        return(result)
         
-        let result = String(dummyResult);
-        return(result)
+        let no1 = Int(args[0]) // First number
+        let operatar = args[1] // Operator (e.g., "+")
+        let no2 = Int(args[2]) // Second number
+        
+        if let num1 = no1, let num2 = no2 {
+            switch operatar {
+            case "+":
+                return String(add(no1: num1, no2: num2)) // Calls add() method
+            case "-":
+                return String(minus(no1: num1, no2: num2)) // Calls minus() method
+            case "x":
+                return String(multiply(no1: num1, no2: num2)) // Calls multiply() method
+            case "/":
+                if num2 != 0 {
+                    return String(divide(no1: num1, no2: num2)) // Calls divide() method
+                } else {
+                    return "Error: Division by zero is not allowed."
+                }
+            case "%":
+                return String(modulus(no1: num1, no2: num2)) // Calls modulus() method
+            default:
+                return "Error: Unsupported operator."
+            }
+        } else {
+            return "Error: Invalid number format."
+        }
     }
 }
