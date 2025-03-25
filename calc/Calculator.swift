@@ -11,7 +11,7 @@ import Foundation
 class Calculator {
     
     /// For multi-step calculation, it's helpful to persist existing result
-    var currentResult = 0;
+//    var currentResult = 0;
     
     /// Perform Addition
     ///
@@ -45,37 +45,84 @@ class Calculator {
 
     
     func calculate(args: [String]) -> String {
-        // Todo: Calculate Result from the arguments. Replace dummyResult with your actual result;
-        //        let dummyResult = add(no1: 1, no2: 2);
-        //
-        //        let result = String(dummyResult);
-        //        return(result)
-        
-        let no1 = Int(args[0]) // First number
-        let operatar = args[1] // Operator (e.g., "+")
-        let no2 = Int(args[2]) // Second number
-        
-        if let num1 = no1, let num2 = no2 {
-            switch operatar {
-            case "+":
-                return String(add(no1: num1, no2: num2)) // Calls add() method
-            case "-":
-                return String(minus(no1: num1, no2: num2)) // Calls minus() method
-            case "x":
-                return String(multiply(no1: num1, no2: num2)) // Calls multiply() method
-            case "/":
-                if num2 != 0 {
-                    return String(divide(no1: num1, no2: num2)) // Calls divide() method
-                } else {
-                    return "Error: Division by zero is not allowed."
-                }
-            case "%":
-                return String(modulus(no1: num1, no2: num2)) // Calls modulus() method
-            default:
-                return "Error: Unsupported operator."
-            }
-        } else {
+        guard args.count >= 3 else {
             return "Error: Invalid number format."
         }
+        
+//        var currentResult = firstNum
+//        var i = 1
+        
+//    while i < args.count - 1 {
+//        let oper = args[i]
+//        guard let nextNum = Int(args[i + 1]) else {
+//            return "Error: Invalid number format."
+//        }
+//
+//        switch oper {
+//            case "+":
+//                currentResult = add(no1: currentResult, no2: nextNum)
+//            case "-":
+//                currentResult = minus(no1: currentResult, no2: nextNum)
+//            case "x":
+//                currentResult = multiply(no1: currentResult, no2: nextNum)
+//            case "/":
+//                currentResult = divide(no1: currentResult, no2: nextNum)
+//            case "%":
+//                currentResult = modulus(no1: currentResult, no2: nextNum)
+//            default:
+//                return "Error: Unsupported operator \(oper)."
+//            }
+//
+//            i += 2  // Move to the next operator
+//        }
+//        return String(currentResult)
+        
+        var numbers: [Int] = []
+        var operators: [String] = []
+        
+        for (index, arg) in args.enumerated() {
+            if index % 2 == 0 {
+                guard let num = Int(arg) else {
+                    return "Error: Invalid number format."
+                }
+                numbers.append(num)
+            } else {
+                operators.append(arg)
+            }
+        }
+        
+        var i = 0
+        while i < operators.count {
+            if operators[i] == "x" {
+                numbers[i] = multiply(no1: numbers[i], no2: numbers[i + 1])
+                numbers.remove(at: i + 1)
+                operators.remove(at: i)
+            } else if operators[i] == "/" {
+                if numbers[i + 1] == 0 {
+                    return "Error: Division by zero."
+                }
+                numbers[i] = divide(no1: numbers[i], no2: numbers[i + 1])
+                numbers.remove(at: i + 1)
+                operators.remove(at: i)
+            } else if operators[i] == "%" {
+                numbers[i] = modulus(no1: numbers[i], no2: numbers[i + 1])
+                numbers.remove(at: i + 1)
+                operators.remove(at: i)
+            } else {
+                i += 1
+            }
+        }
+        
+        i = 0
+        while i < operators.count {
+            if operators[i] == "+" {
+                numbers[i] = add(no1: numbers[i], no2: numbers[i + 1])
+            } else if operators[i] == "-" {
+                numbers[i] = minus(no1: numbers[i], no2: numbers[i + 1])
+            }
+            numbers.remove(at: i + 1)
+            operators.remove(at: i)
+        }
+        return String(numbers[0])
     }
 }
