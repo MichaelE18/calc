@@ -11,7 +11,6 @@ import Foundation
 class Calculator {
     
     /// For multi-step calculation, it's helpful to persist existing result
-//    var currentResult = 0;
     
     /// Perform Addition
     ///
@@ -48,34 +47,6 @@ class Calculator {
         guard args.count >= 3 else {
             return "Error: Invalid number format."
         }
-        
-//        var currentResult = firstNum
-//        var i = 1
-        
-//    while i < args.count - 1 {
-//        let oper = args[i]
-//        guard let nextNum = Int(args[i + 1]) else {
-//            return "Error: Invalid number format."
-//        }
-//
-//        switch oper {
-//            case "+":
-//                currentResult = add(no1: currentResult, no2: nextNum)
-//            case "-":
-//                currentResult = minus(no1: currentResult, no2: nextNum)
-//            case "x":
-//                currentResult = multiply(no1: currentResult, no2: nextNum)
-//            case "/":
-//                currentResult = divide(no1: currentResult, no2: nextNum)
-//            case "%":
-//                currentResult = modulus(no1: currentResult, no2: nextNum)
-//            default:
-//                return "Error: Unsupported operator \(oper)."
-//            }
-//
-//            i += 2  // Move to the next operator
-//        }
-//        return String(currentResult)
         
         var numbers: [Int] = []
         var operators: [String] = []
