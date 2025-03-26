@@ -17,10 +17,10 @@ if args.count >= 3 {
     // Initialize a Calculator object
     let calculator = Calculator()
     
-    // Call the calculate function and pass the arguments
+    // Call calculate function with arguments
     let result = calculator.calculate(args: args)
     
-    // Print the result returned from the calculate function
+    // Print the result
     print(result)
 } else {
     print("Invalid input. Please provide at least two numbers and an operator.")
